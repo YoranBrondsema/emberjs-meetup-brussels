@@ -1,0 +1,134 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+/* Functions */
+/* Fonts */
+/* SVG */
+/* CSS Effects */
+/* Fonts */
+@font-face {
+  font-family: "Franchise-Bold";
+  src: url('../fonts/Franchise-Bold.ttf') format('truetype'), url('../fonts/Franchise-Bold.eot') format('embedded-opentype'), url('../fonts/Franchise-Bold.svg') format('svg'), url('../fonts/Franchise-Bold.woff') format('woff');
+}
+
+/* Mixins */
+/**** DESIGN ****/
+/* line 24, ../../sass/theme/hstry.scss */
+body {
+  background-color: #1fb6ed;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+}
+
+/* line 32, ../../sass/theme/hstry.scss */
+.reveal h1 {
+  font-family: "Franchise-Bold", sans-serif;
+  font-weight: normal;
+  font-size: 6rem;
+}
+/* line 13, ../../sass/sass-mixins/_mixins.scss */
+.no-cssremunit .reveal h1 {
+  font-size: 60px;
+}
+/* line 37, ../../sass/theme/hstry.scss */
+.reveal h2 {
+  font-size: 3rem;
+}
+/* line 13, ../../sass/sass-mixins/_mixins.scss */
+.no-cssremunit .reveal h2 {
+  font-size: 30px;
+}
+
+/* line 43, ../../sass/theme/hstry.scss */
+.slides a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* line 48, ../../sass/theme/hstry.scss */
+.slides h2 {
+  margin: 20px 0;
+}
+/* line 49, ../../sass/theme/hstry.scss */
+.slides li {
+  margin: 10px 0;
+  font-size: 3rem;
+}
+/* line 13, ../../sass/sass-mixins/_mixins.scss */
+.no-cssremunit .slides li {
+  font-size: 30px;
+}
+/* line 53, ../../sass/theme/hstry.scss */
+.slides .hstry {
+  font-family: "Franchise-Bold", sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 4rem;
+  letter-spacing: 2px;
+  color: white;
+  text-decoration: none;
+}
+/* line 13, ../../sass/sass-mixins/_mixins.scss */
+.no-cssremunit .slides .hstry {
+  font-size: 40px;
+}
+/* line 63, ../../sass/theme/hstry.scss */
+.slides .intro h1 {
+  margin: 30px 0;
+}
+/* line 64, ../../sass/theme/hstry.scss */
+.slides .intro h2 {
+  margin: 30px 0;
+}
+/* line 65, ../../sass/theme/hstry.scss */
+.slides .intro img {
+  display: block;
+  margin: 40px auto;
+}
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+/* line 77, ../../sass/theme/hstry.scss */
+.reveal .controls div.navigate-left,
+.reveal .controls div.navigate-left.enabled {
+  border-right-color: white;
+}
+
+/* line 80, ../../sass/theme/hstry.scss */
+.reveal .controls div.navigate-right,
+.reveal .controls div.navigate-right.enabled {
+  border-left-color: white;
+}
+
+/* line 83, ../../sass/theme/hstry.scss */
+.reveal .controls div.navigate-up,
+.reveal .controls div.navigate-up.enabled {
+  border-bottom-color: white;
+}
+
+/* line 86, ../../sass/theme/hstry.scss */
+.reveal .controls div.navigate-down,
+.reveal .controls div.navigate-down.enabled {
+  border-top-color: white;
+}
+
+/* line 88, ../../sass/theme/hstry.scss */
+.reveal .controls .enabled:hover {
+  opacity: 1;
+}
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+/* line 106, ../../sass/theme/hstry.scss */
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2);
+}
+/* line 108, ../../sass/theme/hstry.scss */
+.reveal .progress span {
+  background: #4ec5f1;
+  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+}
