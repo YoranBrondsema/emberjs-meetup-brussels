@@ -1,10 +1,13 @@
 $blue: #1FB6ED;
 $darkblue: darken($blue, 10%);
 $lightblue: lighten($blue, 10%);
+$grey: #666;
 $white: #ffffff;
 
 @import "compass/css3/transition";
 @import "compass/css3/font-face";
+@import "compass/css3/box-sizing";
+@import "compass/utilities/general/clearfix";
 @import "sass-mixins/mixins";
 
 /* Fonts */
@@ -35,7 +38,13 @@ body {
   }
 
   h2 {
-    @include font-size(3);
+    @include font-size(4);
+    line-height: 1.4em;
+  }
+
+  h3 {
+    @include font-size(2.5);
+    line-height: 1.4em;
   }
 }
 
@@ -45,10 +54,11 @@ body {
     font-weight: bold;
     text-decoration: none;
   }
+  h1 { margin: 20px 0; }
   h2 { margin: 20px 0; }
   li {
     margin: 10px 0;
-    @include font-size(3);
+    @include font-size(2);
   }
   .hstry {
     @include franchise;
@@ -68,6 +78,38 @@ body {
     }
   }
 
+  .architecture {
+    .column {
+      width: 25%;
+      float: left;
+      @include clearfix;
+      &.description { width: 50%; }
+    }
+    .box {
+      background-color: $white;
+      width: 80%;
+      margin: 20px auto;
+      color: $grey;
+      padding: 20px;
+      @include box-sizing(border-box);
+      border: 4px solid $darkblue;
+      opacity: 0.3;
+      &:first-child { margin-top: 0; }
+    }
+    .description {
+      text-align: left;
+    }
+    .router { margin-top: 100px; }
+    &.all .box { opacity: 1; }
+    &.template .box.template { opacity: 1; }
+    &.model .box.model { opacity: 1; }
+    &.controller .box.controller { opacity: 1; }
+    &.view .box.view { opacity: 1; }
+    &.router .box.router { opacity: 1; }
+  }
+  pre {
+    width: auto;
+  }
 }
 
 /*********************************************
