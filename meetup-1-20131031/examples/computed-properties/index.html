@@ -18,8 +18,6 @@
     <script>
       // Create the Ember application
       var App = Ember.Application.create();
-      // Use fixtures for models (typically you would use RESTAdapter)
-      App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
       // Define a User model
       App.User = DS.Model.extend({
@@ -51,6 +49,8 @@
         }.property('firstName', 'lastName')
       });
 
+      // Use fixtures for models (typically you would use RESTAdapter)
+      App.ApplicationAdapter = DS.FixtureAdapter.extend();
       // Dummy data
       App.User.FIXTURES = [
         {

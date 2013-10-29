@@ -12,14 +12,14 @@
   </head>
   <body>
     <script type="text/x-handlebars" data-template-name="users">
-      Hello, {{firstName}} {{lastName}}
+      {{#each}}
+        Hello, {{firstName}} {{lastName}}
+      {{/each}}
     </script>
 
     <script>
       // Create the Ember application
       var App = Ember.Application.create();
-      // Use fixtures for models (typically you would use RESTAdapter)
-      App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
       // Define a User model
       App.User = DS.Model.extend({
@@ -32,18 +32,16 @@
         this.resource('users', { path: '/' });
       });
 
-      // Holds a reference to the instance of the User model that we're using
-      var user;
-
       // Defined route 'users'-> naming from convention
       // Route defines the model that is shown
       App.UsersRoute = Ember.Route.extend({
         model: function () {
-          user = this.get('store').find('user', 1);
-          return user;
+          return this.get('store').find('user');
         }
       });
-
+      
+      // Use fixtures for models (typically you would use RESTAdapter)
+      App.ApplicationAdapter = DS.FixtureAdapter.extend();
       // Dummy data
       App.User.FIXTURES = [
         {
@@ -52,11 +50,6 @@
           lastName: 'Brondsema'
         }
       ];
-
-      // Function that changes the 'firstName' property of the model
-      App.changeFirstName = function(newName) {
-        user.set('firstName', newName);
-      };
     </script>
   </body>
 </html>

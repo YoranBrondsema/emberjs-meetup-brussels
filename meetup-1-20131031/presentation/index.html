@@ -50,6 +50,9 @@
           <h2>Stay <strong>up-to-date</strong></h2>
         </section>
         <section>
+          <h2>Be <strong>inspired</strong></h2>
+        </section>
+        <section>
           <h2>Have a <strong>nice evening</strong> among peers</h2>
         </section>
         <section>
@@ -60,8 +63,8 @@
           </section>
           <section>
             <h2>24 years old</h2>
-            <h2 class="fragment">Developer/CTO at <a href="http://www.hstry.org" class="hstry">Hstry.org</a></h2>
-            <h2 class="fragment">3 months Ember.js user</h2>
+            <h2>Developer/CTO at <a href="http://www.hstry.org" class="hstry">Hstry.org</a></h2>
+            <h2>3 months Ember.js user</h2>
           </section>
         </section>
         <section>
@@ -73,12 +76,16 @@
         <section>
           <h1>What is Ember.js?</h1>
           <h3 class="fragment">MVC framework to develop <strong>ambitious</strong> web applications</h3>
-          <h3 class="fragment">Closes the <strong>gap</strong> between HTML5 and native apps</h3>
-          <h3 class="fragment"><strong>Convention</strong> over configuration</h3>
+          <h3 class="fragment">Makes it easier to develop <strong>single-page</strong> web apps</h3>
+          <h3 class="fragment">Closes the <strong>gap</strong> between web and native apps</h3>
         </section>
         <section>
           <a href="http://emberbeats.gavinjoyce.com/"><h1>DEMO</h1></a>
           <h3 class="fragment">~1060 lines of code</h3>
+        </section>
+        <section>
+          <h1>Ember.js Architecture</h1>
+          <h3><strong>Convention</strong> over configuration</h3>
         </section>
         <section class="slide-architecture">
           <h1>Ember.js Architecture</h1>
@@ -155,7 +162,7 @@ App.Person = DS.Model.extend({
               <p><strong>Controllers</strong> provide an interface of the model to the view.</p>
               <pre><code data-trim class="javascript">
 App.PersonController =
-  Ember.Controller.extend({
+  Ember.ObjectController.extend({
     fullName: function() {
       return (
         this.get('firstName')
@@ -210,11 +217,13 @@ App.ClickableView = Ember.View.extend({
               <div class="box template">Template</div>
             </div>
             <div class="column description">
-              <p>The <strong>Router</strong> transitions between a collection of routes, each representing a high-level application state (e.g. page).</p>
+              <p>The <strong>Router</strong> transitions between a collection of routes, each representing an application state and identified by a URL.</p>
               <p>Each <strong>Route</strong> tells the template which model it should display.</p>
-              <p>The router is similar to the RoR router.</p>
+              <p>The router interface is similar to the RoR router.</p>
               <pre><code data-trim class="javascript">
 App.Router.map(function() {
+  this.route("about", { path: "/about" });
+  this.route("favorites", { path: "/favs" });
   this.resource('users', function() {
     this.route('new');
   });
@@ -238,7 +247,10 @@ App.Router.map(function() {
             </ul>
           </section>
           <section>
-            <h2>DEMO</h2>
+            <h2>DEMO 1</h2>
+          </section>
+          <section>
+            <h2>DEMO 2</h2>
           </section>
           <section>
             <h2>Automatically append/remove HTML</h2>
@@ -247,7 +259,8 @@ App.Router.map(function() {
             <h2>DEMO</h2>
           </section>
           <section>
-            <h2>Enforced MVC</h2>
+            <h2>Enforced structure</h2>
+            <h3>Hard to get out of MVC</h3>
             <h3>No more jQuery spaghetti code</h3>
           </section>
           <section>
@@ -288,7 +301,7 @@ App.Router.map(function() {
           </section>
           <section>
             <h2>Unstable API</h2>
-            <h3>Annoying for help</h3>
+            <h3>Annoying for help (discard 2012)</h3>
             <h3>Also getting better</h3>
             <h3>1.0.0 released on September 9th, 2013</h3>
           </section>
@@ -353,6 +366,11 @@ App.Router.map(function() {
             <li>Cool little <strong>hacks</strong> that you want to show ("lightning talk" style)</li>
             <li>Showcase <strong>your project</strong></li>
           </ul>
+        </section>
+        <section>
+          <h1>That's it for me</h1>
+          <h3>Github</h3>
+          <h3><a href="https://github.com/YoranBrondsema/emberjs-meetup-brussels">YoranBrondsema/emberjs-meetup-brussels</a></h3>
         </section>
       </div>
     </div>

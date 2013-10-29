@@ -63,7 +63,7 @@ body {
   .hstry {
     @include franchise;
     text-transform: uppercase;
-    @include font-size(4);
+    @include font-size(5);
     letter-spacing: 2px;
     color: $white;
     text-decoration: none;
