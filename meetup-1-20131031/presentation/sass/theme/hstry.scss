@@ -8,7 +8,7 @@ $white: #ffffff;
 @import "compass/css3/font-face";
 @import "compass/css3/box-sizing";
 @import "compass/utilities/general/clearfix";
-@import "sass-mixins/mixins";
+//@import "../sass-mixins/mixins";
 
 /* Fonts */
 $franchise-font: "Franchise-Bold";
@@ -21,6 +21,21 @@ $open-sans: "Open Sans", sans-serif;
 @mixin franchise {
   font-family: $franchise;
   font-weight: normal;
+}
+/* Functions */
+@function rem-to-px($rem) {
+  @return $rem * $font-size;
+}
+
+/* Fonts */
+$font-size: 10px;
+
+@mixin font-size($size, $unit: rem) {
+	font-size: $size + unquote($unit);
+
+	@if ($unit == "rem") {
+		.no-cssremunit & { font-size: rem-to-px($size); }
+	}
 }
 
 /**** DESIGN ****/

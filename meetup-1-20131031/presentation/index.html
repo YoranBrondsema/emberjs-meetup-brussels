@@ -115,9 +115,12 @@
             </div>
             <div class="column description">
               <p> <strong>Templates</strong> define the HTML of the application. They are written in the Handlebars templating language.</p>
-                <pre><code data-trim class="xml">
+                <pre><code data-trim class="handlebars">
 <p class="hello-world">
   Hello, {{firstName}}!
+  {{#if isOld}}
+    You are old!
+  {{/if}}
 </p>
                 </code></pre>
             </div>
@@ -171,7 +174,7 @@ App.PersonController =
     }.property('firstName', 'fullName')
 });
               </code></pre>
-              <pre><code data-trim class="xml">
+              <pre><code data-trim class="handlebars">
 <p class="hello-world">
   Hello, {{fullName}}
 </p>
@@ -232,6 +235,13 @@ App.Router.map(function() {
             </div>
           </div>
         </section>
+		<section>
+			<h1>Ember-Data</h1>
+			<h3>Separate from Ember.js</h3>
+			<h3>Sits between <strong>server</strong> and <strong>models</strong></h3>
+			<h3>Deserialises <strong>JSON</strong> into Ember <strong>models</strong></h3>
+			<h3>Serialises <strong>models</strong> into <strong>JSON</strong></h3>
+		</section>
         <section>
           <section>
             <h1>Personal cool features</h1>
@@ -239,7 +249,7 @@ App.Router.map(function() {
           <section>
             <h2>Data binding!</h2>
             <ul>
-              <li>Don't have to worry about updating the <strong>view</strong> when your <strong>model changes</strong></li>
+              <li>Don't bother updating the <strong>view</strong> when your <strong>model changes</strong></li>
               <li>No more <strong>mirroring</strong> your DOM structure in Javascript
                 <pre><code class="javascript">$('.main-container .users li .name').each(function() { ... });</code></pre>
               </li>
@@ -279,7 +289,7 @@ App.Router.map(function() {
           </section>
           <section>
             <h2>Heavy</h2>
-            <h3>64 KiB minified</h3>
+            <h3>~230 KiB minified</h3>
             <h3>Not so good for mobile</h3>
             <h3>A lot of JS to execute</h3>
           </section>
@@ -326,7 +336,7 @@ App.Router.map(function() {
             <h2>Ember Weekly</h2>
             <h3>Weekly newsletter</h3>
             <h3>Everything you need to know</h3>
-            <h3>Watch for next Brussels meetup :-)</h3>
+            <h3>Watch for next Brussels meetup!</h3>
             <h3><a href="http://emberweekly.com/">emberweekly.com</a></h3>
           </section>
           <section>
