@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="description" content="Ember.js Computed Properties" />
+    <meta name="description" content="Ember.js Data Binding" />
     <meta charset=utf-8 />
-    <title>Ember.js - Computed properties</title>
+    <title>Ember.js - Data binding</title>
 
     <script src="../lib/jquery.min.js"></script>
     <script src="../lib/handlebars.js"></script>
@@ -32,14 +32,16 @@
         this.resource('users', { path: '/' });
       });
 
+      var users;
       // Defined route 'users'-> naming from convention
       // Route defines the model that is shown
       App.UsersRoute = Ember.Route.extend({
         model: function () {
-          return this.get('store').find('user');
+          users = this.get('store').find('user');
+          return users;
         }
       });
-      
+
       // Use fixtures for models (typically you would use RESTAdapter)
       App.ApplicationAdapter = DS.FixtureAdapter.extend();
       // Dummy data

@@ -12,7 +12,9 @@
   </head>
   <body>
     <script type="text/x-handlebars" data-template-name="users">
-      Hello, {{fullName}}
+      {{#each}}
+        Hello, {{fullName}}
+      {{/each}}
     </script>
 
     <script>
@@ -31,19 +33,23 @@
       });
 
       // Holds a reference to the instance of the User model that we're using
-      var user;
+      var users;
 
       // Defined route 'users'-> naming from convention
       // Route defines the model that is shown
       App.UsersRoute = Ember.Route.extend({
         model: function () {
-          user = this.get('store').find('user', 1);
-          return user;
+          users = this.get('store').find('user');
+          return users;
         }
       });
 
+      App.UsersController = Ember.ArrayController.extend({
+        itemController: 'user'
+      });
+
       // Define a custom controller with a computed property
-      App.UsersController = Ember.ObjectController.extend({
+      App.UserController = Ember.ObjectController.extend({
         fullName: function() {
           return this.get('firstName') + " " + this.get('lastName');
         }.property('firstName', 'lastName')

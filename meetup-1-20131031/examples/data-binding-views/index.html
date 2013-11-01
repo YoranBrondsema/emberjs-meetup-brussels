@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="description" content="Ember.js Computed Properties" />
+    <meta name="description" content="Ember.js Data Binding with Views" />
     <meta charset=utf-8 />
-    <title>Ember.js - Computed properties</title>
+    <title>Ember.js - Data binding with views</title>
 
     <script src="../lib/jquery.min.js"></script>
     <script src="../lib/handlebars.js"></script>
@@ -12,10 +12,12 @@
   </head>
   <body>
     <script type="text/x-handlebars" data-template-name="users">
-      Hello, {{firstName}} {{lastName}}.
-      {{#if hasLongName}}
-        <p style="background-color: red;">Your name is very long!</p>
-      {{/if}}
+      {{#each}}
+        Hello, {{firstName}} {{lastName}}.
+        {{#if hasLongName}}
+          <p style="background-color: red;">Your name is very long!</p>
+        {{/if}}
+      {{/each}}
     </script>
 
     <script>
@@ -34,19 +36,23 @@
       });
 
       // Holds a reference to the instance of the User model that we're using
-      var user;
+      var users;
 
       // Defined route 'users'-> naming from convention
       // Route defines the model that is shown
       App.UsersRoute = Ember.Route.extend({
         model: function () {
-          user = this.get('store').find('user', 1);
-          return user;
+          users = this.get('store').find('user');
+          return users;
         }
       });
 
+      App.UsersController = Ember.ArrayController.extend({
+        itemController: 'user'
+      });
+
       // Define a custom controller with a computed property
-      App.UsersController = Ember.ObjectController.extend({
+      App.UserController = Ember.ObjectController.extend({
         hasLongName: function() {
           return this.get('firstName').length > 5;
         }.property('firstName')
@@ -62,11 +68,6 @@
           lastName: 'Brondsema'
         }
       ];
-
-      // Function that changes the 'firstName' property of the model
-      App.changeFirstName = function(newName) {
-        user.set('firstName', newName);
-      };
     </script>
   </body>
 </html>
