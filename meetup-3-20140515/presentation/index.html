@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Meetup #3 - Ember.js Brussels</title>
+    <title>Meetup #3 - Brussels Ember.js</title>
     <meta name="description" content="Presentation for the third Brussels Ember.js Meetup">
     <meta name="author" content="Yoran Brondsema">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
         <section class="intro">
           <h1>Welcome, Embeerists</h1>
           <h3>to the Ember.js Meetup <strong>#3</strong> in Brussels</h3>
-          <h3>15th of May 2014</h3>
+          <h4>15th of May 2014</h4>
           <img src="images/ember-belgium.png" alt="Ember.js Belgium" />
         </section>
         <section>
@@ -47,248 +47,204 @@
           </ul>
         </section>
         <section>
+          <h1>About me</h1>
+          <p>Works at <a href="http://www.hstry.co">Hstry</a> (hiring Ember devs!)</p>
+          <p>Blogs on <a href="http://www.yoranbrondsema.com">YoranBrondsema.com</a></p>
+          <p>Tweets on <a href="https://twitter.com/YoranBrondsema">@YoranBrondsema</a></p>
+          <img src="images/hstry.svg" alt="Logo of Hstry" class="hstry-logo" />
+        </section>
+        <section>
           <h1>About this meetup</h1>
           <h3>Looking for organizer(s)!</h3>
         </section>
         <section>
-          <h1>
+          <h1>Testing an Ember.js app</h1>
+          <ul>
+            <li>From my experiences working on <a href="http://www.hstry.co">Hstry</a></li>
+            <li><strong>Ember.js</strong> front-end and <strong>Ruby on Rails</strong> back-end</li>
+            <li>Will cover the whole stack</li>
+          </ul>
         </section>
         <section>
-          <h1>Live polling system</h1>
-          <h3>For periodic updates in a single-page app</h3>
-          <h3>No real-time updates (need persistent connection like WebSockets)</h3>
-          <h3>Used in Hstry for live updates of comments and likes</h3>
+          <section>
+            <h2>I hope you do tests. And if you don't, you should.</h2>
+          </section>
+          <section>
+            <h3>Prevent regressions</h3>
+          </section>
+          <section>
+            <h3>Confidence</h3>
+          </section>
+          <section>
+            <h3>Enables methodologies like BDD and TDD</h3>
+          </section>
+          <section>
+            <h3>Documentation</h3>
+          </section>
         </section>
         <section>
-          <h1>How does Ember help?</h1>
-          <h3>Add models to the store and view updates itself</h3>
+          <section><h2>3 levels of testing</h2></section>
+          <section><h3>Unit tests</h3></section>
+          <section><h3>Controller tests</h3></section>
+          <section><h3>Integration tests</h3></section>
         </section>
         <section>
-          <h1>Example</h1>
-          <h3>We have <code>Post</code>'s and <code>Comment</code>'s</h3>
-          <h3>We want to periodically update the new comments to a post</h3>
+          <h1>Unit tests</h1>
+          <ul>
+            <li>Belong to <strong>back-end</strong></li>
+            <li>Test your models</li>
+            <li>Validations on your data</li>
+            <li>Instance methods</li>
+            <li>Class methods</li>
+          </ul>
         </section>
         <section>
-          <h1>Show me the code</h1>
-          <h3>Pollster object</h3>
-          <h3>Responsible for setting an interval that periodically calls an <code>onPoll</code> function</h3>
-          <pre><code data-trim class="javascript">
-App.Pollster = Ember.Object.extend({
-  start: function() {
-    // POLL_INTERVAL is for instance 30 seconds
-    this.timer = setInterval(this.onPoll.bind(this), POLL_INTERVAL);
-  },
-  stop: function() {
-    clearInterval(this.timer);
-  },
-  onPoll: function() {
-    // Issue JSON request and add data to the store
-  }
-});
-          </code></pre>
-        </section>
-        <section>
-          <h3>Setup this pollster in the route</h3>
-          <pre><code data-trim class="javascript">
-App.PostRoute = Ember.Route.extend({
-  setupController: function(controller, model) {
-    this.set('pollster', App.Polster.create({
-      onPoll: function() {
-        // Defined on the next slide
-      }
-    }));
-    this.get('pollster').start();
-  },
-  // This is called upon exiting the Route
-  deactivate: function() {
-    this.get('pollster').stop();
-  }
-});
-          </code></pre>
-        </section>
-        <section>
-          <h3>The <code>onPoll</code> function</h3>
-          <pre><code data-trim class="javascript">
-// This code is executed in the 'setupController' hook of the Route
-var route = this;
+          <pre><code data-trim class="ruby">
+describe BlogPost do
+  let(:blog_post) { FactoryGirl.build(:blog_post) }
 
-onPoll: function() {
-  // AJAX request
-  Ember.$.getJSON('/updates', 'GET').then(function(json_obj) {
-    // The JSON structure is as follows:
-    // {
-    //   comments: [
-    //     { ... },
-    //     { ... },
-    //   ]
-    // }
+  it("has a title") { expect(blog_post).to validate_presence_of(:title) }
 
-    // Iterate through the comments
-    Ember.$.each(json_obj.comments, function(index, comment) {
-      // Make sure that the comment is not already in the store
-      if (! route.get('store').recordIsLoaded(App.Comment, comment.id)) {
-        route.get('store').push('comment', comment);
-      }
-    });
-  });
-}
+  describe "#related_posts" do
+    let(:related_posts) { blog_post.related_posts }
+    it("returns an array of at most 5 posts") { ... }
+  end
+  
+end
           </code></pre>
         </section>
         <section>
-          <h3>Now we have added the data to the store</h3>
-          <h3>But the view is not necessarily updated</h3>
-          <h3>Need to use the <code>filter</code> API function</h3>
-          <blockquote>
-            <p>Filters, on the other hand, perform a live search of all of the records in the store’s cache.</p>
-            <p>Takes a type and filter function, and returns a live RecordArray that remains up to date as new records are loaded into the store or created locally.</p>
-          </blockquote>
+          <h1>Controller tests</h1>
+          <ul>
+            <li>Belong to <strong>back-end</strong></li>
+            <li>Interface between front-end and back-end</li>
+            <li>More important than unit tests</li>
+            <li>Test error codes</li>
+            <li>Test changes to models</li>
+            <li>Test structure of response</li>
+          </ul>
         </section>
         <section>
-          <h2>Our template</h2>
-          <pre><code data-trim class="handlebars">
-<article class="post">
-  <h2>{{title}}</h2>
-  <p>{{content}}</p>
-  <aside>{{render "comments" comments}}</aside>
-</article>
-          </code></pre>
+          <img src="images/controller-tests.svg" />
         </section>
         <section>
-          <h2>Our controller for the template</h2>
-          <pre><code data-trim class="javascript">
-App.PostController = Ember.ObjectController.extend({
-  comments: function() {
-    var postId = this.get('id');
-    // Get all the comments that belong to this post
-    return this.get('store').filter('comment', function(comment) {
-      return comment.get('post.id') == postId;
-    });
-  }.property()
-});
-          </code></pre>
-        </section>
-        <section>
-          <h1>Questions?</h1>
-        </section>
-        <section>
-          <h1>Loading animations</h1>
-          <h3>People don't like waiting</h3>
-          <h3>But they mind less when they know something is happening</h3>
-        </section>
-        <section>
-          <h1>First solution in Ember</h1>
-          <h3>Use <code>beforeModel</code> and <code>afterModel</code> hooks</h3>
-          <pre><code data-trim class="javascript">
-App.PostRoute = Ember.Route.extend({
-  beforeModel: function() {
-    // Assume the 'loading' class displays an overlay with a loading animation
-    Ember.$('body').addClass('loading');
-  },
-  model: function(params) {
-    return this.store.find('post', params.post_id);
-  },
-  afterModel: function() {
-    Ember.$('body').removeClass('loading');
-  }
-});
-          </code></pre>
-        </section>
-        <section>
-          <h1>Limitations</h1>
-          <h3>Only works if the model doesn't have any asynchronous associations</h3>
-          <pre><code data-trim class="javascript">
-App.Post = DS.Model.extend({
-  title: DS.attr('string'),
-  comments: DS.hasMany('comment', { async: true })
-});
-          </code></pre>
-          <h3>Example JSON response for a Post</h3>
-          <pre><code data-trim class="javascript">
-{
-  post: {
-    id: 1,
-    title: "This is a post",
-    links: {
-      comments: "/post/1/comments"
-    }
-  }
-}
-          </code></pre>
-        </section>
-        <section>
-          <pre><code data-trim class="handlebars">
-<article class="post">
-  <h2>{{title}}</h2>
-  <p>{{content}}</p>
-  <aside>{{render "comments" comments}}</aside>
-</article>
-          </code></pre>
-          <h3>The comments will only be loaded after the template has started rendering.</h3>
-          <h3>This is after the <code>afterModel</code> hook</h3>
-          <h3>Rest of the page will have rendered</h3>
-          <h3>Instead of comments the user will see "blank"</h3>
-        </section>
-        <section>
-          <h2>We want to wait until everything has loaded to remove the loading animation</h2>
-        </section>
-        <section>
-          <h1>Second solution</h1>
-          <h3>Use Promises</h3>
-        </section>
-        <section>
-          <h3>What does this return</h3>
-          <pre><code data-trim class="javascript">
-post.get('comments');
-          </code></pre>
-          <h3><code>PromiseArray</code> if comments not yet loaded</h3>
-          <h3><code>ManyArray</code> if comments already in the store</h3>
-        </section>
-        <section>
-          <h3>We want to have Promises everywhere</h3>
-          <pre><code data-trim class="javascript">
-Ember.RSVP.makePromise = function(maybePromise) {
-  // Test if it's a promise
-  if (maybePromise.then) {
-    // Then return it
-    return maybePromise;
-  } else {
-    // Wrap it in a Promise that resolves directly
-    return Ember.RSVP.resolve(maybePromise);
-  }
-};
-          </code></pre>
-        </section>
-        <section>
-          <h2>The code</h2>
-          <pre><code data-trim class="javascript">
-App.PostRoute = Ember.Route.extend({
-  beforeModel: function() {
-    // Assume the 'loading' class displays an overlay with a loading animation
-    Ember.$('body').addClass('loading');
-  },
-  model: function(params) {
-    return this.store.find('post', params.post_id);
-  },
-  setupController: function(post, controller) {
-    // Pre-load the comments
-    // The 'get' call will result in an AJAX call to get the comments and returns a promise
-    var comments = Ember.RSVP.makePromise(post.get('comments'));
+          <pre><code data-trim class="ruby">
+describe BlogPostsController do
+  describe "POST #create" do
+    # PARAMETER VALIDATION
+    context "Invalid authentication token" do
+      it("returns 'unauthorized' status code") { ... }
+    end
+    context "Blank title" do
+      it("returns 'unprocessable_entity' status code") { ... }
+    end
 
-    // Wait until the promise has been resolved
-    comments.then(function() {
-      // Wait until all templates have finished rendering
-      Ember.run.scheduleOnce('afterRender', this, function() {
-        // Remove the loading animation
-        Ember.$('body').removeClass('loading');
-      });
-    });
-  }
-});
+    context "Valid parameters" do
+      # MODELS UPDATE
+      it("creates a new BlogPost") { ... }
+
+      # SEND RESPONSE
+      it("returns '201 Created' status code") { ... }
+      it("returns a JSON serialization of a blog post") { ... }
+    end
+  end
+end
           </code></pre>
+        </section>
+        <section>
+          <h1>Integration tests</h1>
+          <ul>
+            <li>Simulates user behavior in browser</li>
+            <li>Back in "old" days, was driven by <strong>back-end</strong> (Rails views)</li>
+            <li>In Rails, tested with RSpec + Capybara</li>
+            <li>Run on Selenium, PhantomJS, ...</li>
+          </ul>
+        </section>
+        <section>
+          <h2>This is how the <a href="http://www.hstry.co">Hstry</a> application was tested too</h2>
+        </section>
+        <section>
+          <section><h2>... but it had problems!</h2></section>
+          <section>
+            <h3>Very slow</h3>
+            <ul>
+              <li>Starts a new fresh browser session for each test</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Synchronization issues</h3>
+            <div class="fragment">
+              <p>Move on to next test while controller actions are still running. Test failure.</p>
+              <img src="images/capybara-sync-issues.svg" alt="Capybara synchronization issues" />
+            </div>
+          </section>
+          <section><h3>Random fails</h3></section>
+        </section>
+        <section>
+          <section><h2>Do all integration testing in Ember.js itself</h2></section>
+          <section>
+            <h3>Way faster</h3>
+            <p>Moved from ~25 minutes to ~2 minutes testing time</p>
+          </section>
+          <section>
+            <h3>No more synchronization issues</h3>
+            <p>Promises!</p>
+          </section>
+          <section><h3>Promotes separation between back-end and front-end</h3></section>
+        </section>
+        <section>
+          <section><h2>What to test?</h2></section>
+          <section>
+            <h3>What the user is supposed to see.</h3>
+            <p>Click on this button, should see this.</p>
+          </section>
+          <section>
+            <h3>That calls to API with proper parameters are made.</h3>
+            <p>Click on this "Submit" button, issues POST request to endpoint <i>XXX</i> with parameters <i>YYY</i></p>
+            <p>We know that if parameters are ok, it does what it needs to do</p>
+          </section>
+        </section>
+        <section>
+          <h2>What do you need?</h2>
+          <ul>
+            <li>Testing framework: QUnit (default for Ember), Mocha, Jasmine,...</li>
+            <li>Test runner: Teaspoon (Rails), Testem (Node.js), Karma (Node.js)</li>
+          </ul>
+        </section>
+        <section>
+          <h1>DEMO</h1>
+        </section>
+        <section>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="http://emberjs.com/guides/testing/integration/">Ember.js Testing Guide</a></li>
+            <li><a href="https://github.com/modeset/teaspoon">teaspoon</a> gem</li>
+            <li><a href="http://api.qunitjs.com/">QUnit documentation</a></li>
+            <li><a href="https://github.com/ebryn/bloggr-client-rails/blob/master/test/javascripts/test_helper.js">ebryn's test helper</a></li>
+            <li><a href="https://github.com/appendto/jquery-mockjax">jquery-mockjax</a> plugin</li>
+          </ul>
+        </section>
+        <section>
+          <h2>What about fixtures?</h2>
+          <p>Set up seed data in API endpoint <code>/test_reset</code></p>
+          <p>Call this endpoint before each test</p>
+          <p>Do not open this endpoint in production!</p>
+        </section>
+        <section>
+          <h2>Testing Ember components</h2>
+          <ul>
+            <li>Isolated components with a clear interface, ideal for testing</li>
+            <li>"Test once, re-use with confidence everywhere"</li>
+            <li>See <a href="http://emberjs.com/guides/testing/testing-components/">Ember.js Guide: Testing Components</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Short intro to integration testing in Ember.js</h3>
+          <h2>Questions?</h2>
         </section>
         <section>
           <h1>Thank you</h1>
-          <h3>Oh, and Hstry is hiring :-)</h3>
+          <h3>Oh, and Hstry is still hiring :-)</h3>
         </section>
       </div>
     </div>

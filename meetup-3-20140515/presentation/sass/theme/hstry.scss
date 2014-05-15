@@ -5,11 +5,6 @@ $grey: #666;
 $darkgrey: #444;
 $white: #ffffff;
 
-// @import "compass/css3/transition";
-
-// @import "compass/css3/font-face";
-// @import "compass/css3/box-sizing";
-// @import "compass/utilities/general/clearfix";
 @import "bourbon/bourbon";
 
 /* Fonts */
@@ -18,7 +13,6 @@ $antonio-font: "antonio-bold-webfont";
 @include font-face("Antonio", '../fonts/antonio-bold-webfont', bold);
 @include font-face("Open Sans", '../fonts/opensans-regular-webfont');
 @include font-face("Open Sans", '../fonts/opensans-semibold-webfont', bold);
-// @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 $antonio: "Antonio", sans-serif;
 $open-sans: "Open Sans", sans-serif;
 
@@ -74,9 +68,20 @@ body {
   a {
     color: $blue;
     text-decoration: none;
+    @include transition(color 0.2s);
+    &:hover {
+      color: darken($blue, 10%);
+    }
+  }
+  p {
+    margin: 16px 0;
+  }
+  h1, h2, h3 {
+    @include hyphens(none);
   }
   h1 { margin: 0 0 40px 0; }
   h2 { margin: 20px 0; }
+  h3 { margin: 30px 0; }
   ul {
     list-style-type: none;
     margin: 0;
@@ -97,6 +102,10 @@ body {
       background-color: $blue;
       border-radius: 50%;
     }
+  }
+  .hstry-logo {
+    margin: 40px 0;
+    width: 20%;
   }
   .hstry {
     @include antonio;
@@ -154,18 +163,21 @@ body {
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls div.navigate-left,
-.reveal .controls div.navigate-left.enabled { border-right-color: $white; }
+.reveal .controls div.navigate-left.enabled { border-right-color: $blue; }
 
 .reveal .controls div.navigate-right,
-.reveal .controls div.navigate-right.enabled { border-left-color: $white; }
+.reveal .controls div.navigate-right.enabled { border-left-color: $blue; }
 
 .reveal .controls div.navigate-up,
-.reveal .controls div.navigate-up.enabled { border-bottom-color: $white; } 
+.reveal .controls div.navigate-up.enabled { border-bottom-color: $blue; } 
 
 .reveal .controls div.navigate-down,
-.reveal .controls div.navigate-down.enabled { border-top-color: $white; }
+.reveal .controls div.navigate-down.enabled { border-top-color: $blue; }
 
-.reveal .controls .enabled:hover { opacity: 1; }
+.reveal .controls div.enabled {
+  opacity: 0.5;
+  &:hover { opacity: 1; }
+}
 
 // .reveal .controls div.navigate-left.enabled:hover {
 //   border-right-color: $darkblue; }
@@ -184,7 +196,7 @@ body {
  * PROGRESS BAR
  *********************************************/
 .reveal .progress {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   span {
     background: $lightblue;
     @include transition(width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985));
