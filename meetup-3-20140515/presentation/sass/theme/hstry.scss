@@ -79,7 +79,10 @@ body {
   h1, h2, h3 {
     @include hyphens(none);
   }
-  h1 { margin: 0 0 40px 0; }
+  h1 {
+    margin: 0 0 40px 0;
+    line-height: 1.2em;
+  }
   h2 { margin: 20px 0; }
   h3 { margin: 30px 0; }
   ul {
