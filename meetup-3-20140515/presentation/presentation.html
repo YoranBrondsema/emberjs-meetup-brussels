@@ -18,7 +18,7 @@
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
-      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css">' );
     </script>
 
     <!--[if lt IE 9]>
@@ -36,7 +36,8 @@
           <img src="images/ember-belgium.png" alt="Ember.js Belgium" />
         </section>
         <section>
-          <h2>Kindly sponsored by <a href="http://betagroup.be/">BetaGroup</a></h2>
+          <h3>Thank you <a href="http://betagroup.be">BetaGroup</a> for the venue</h3>
+          <h3><a href="http://www.hstry.co">Hstry</a> is our beer provider tonight</h3>
         </section>
         <section>
           <h1>Schedule</h1>
@@ -125,7 +126,7 @@ end
           </ul>
         </section>
         <section>
-          <img src="images/controller-tests.svg" />
+          <img src="images/controller-tests.svg" alt="Controller tests" />
         </section>
         <section>
           <pre><code data-trim class="ruby">
@@ -340,20 +341,20 @@ this.get('element'); // DOM element
         </section>
         <section>
           <h3>I'm in <code>AppleTemplate</code></h3>
-          <pre><code data-trim class="javascript">
+          <pre><code data-trim class="handlebars">
 // Apple
-this.get('view.context');
-this.get('controller.content');
-this.get('controller.model');
+{{view.context}}
+{{controller.content}}
+{{controller.model}}
 
 // AppleRoute
-this.get('controller.target');
+{{controller.target}}
 
 // AppleController
-this.get('controller');
+{{controller}}
 
 // AppleView
-this.get('view');
+{{view}}
 
 // OrangeTemplate
 ???
